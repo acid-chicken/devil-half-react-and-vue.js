@@ -1,0 +1,152 @@
+diff --git a/node_modules/vue/dist/vue.common.dev.js b/node_modules/vue/dist/vue.common.dev.js
+index 64e5460..773e854 100644
+--- a/node_modules/vue/dist/vue.common.dev.js
++++ b/node_modules/vue/dist/vue.common.dev.js
+@@ -2999,12 +2999,12 @@ function FunctionalRenderContext (
+     return this$1.$slots
+   };
+ 
+-  Object.defineProperty(this, 'scopedSlots', ({
++  Object.defineProperty(this, 'scopedSlots', {
+     enumerable: true,
+     get: function get () {
+       return normalizeScopedSlots(data.scopedSlots, this.slots())
+     }
+-  }));
++  });
+ 
+   // support for compiled functional template
+   if (isCompiled) {
+diff --git a/node_modules/vue/dist/vue.esm.browser.js b/node_modules/vue/dist/vue.esm.browser.js
+index fb42472..afc3109 100644
+--- a/node_modules/vue/dist/vue.esm.browser.js
++++ b/node_modules/vue/dist/vue.esm.browser.js
+@@ -3023,12 +3023,12 @@ function FunctionalRenderContext (
+     return this.$slots
+   };
+ 
+-  Object.defineProperty(this, 'scopedSlots', ({
++  Object.defineProperty(this, 'scopedSlots', {
+     enumerable: true,
+     get () {
+       return normalizeScopedSlots(data.scopedSlots, this.slots())
+     }
+-  }));
++  });
+ 
+   // support for compiled functional template
+   if (isCompiled) {
+diff --git a/node_modules/vue/dist/vue.esm.js b/node_modules/vue/dist/vue.esm.js
+index fc52671..596d254 100644
+--- a/node_modules/vue/dist/vue.esm.js
++++ b/node_modules/vue/dist/vue.esm.js
+@@ -3005,12 +3005,12 @@ function FunctionalRenderContext (
+     return this$1.$slots
+   };
+ 
+-  Object.defineProperty(this, 'scopedSlots', ({
++  Object.defineProperty(this, 'scopedSlots', {
+     enumerable: true,
+     get: function get () {
+       return normalizeScopedSlots(data.scopedSlots, this.slots())
+     }
+-  }));
++  });
+ 
+   // support for compiled functional template
+   if (isCompiled) {
+diff --git a/node_modules/vue/dist/vue.js b/node_modules/vue/dist/vue.js
+index e22cf13..3bf870c 100644
+--- a/node_modules/vue/dist/vue.js
++++ b/node_modules/vue/dist/vue.js
+@@ -3003,12 +3003,12 @@
+       return this$1.$slots
+     };
+ 
+-    Object.defineProperty(this, 'scopedSlots', ({
++    Object.defineProperty(this, 'scopedSlots', {
+       enumerable: true,
+       get: function get () {
+         return normalizeScopedSlots(data.scopedSlots, this.slots())
+       }
+-    }));
++    });
+ 
+     // support for compiled functional template
+     if (isCompiled) {
+diff --git a/node_modules/vue/dist/vue.runtime.common.dev.js b/node_modules/vue/dist/vue.runtime.common.dev.js
+index 604657c..c2f2684 100644
+--- a/node_modules/vue/dist/vue.runtime.common.dev.js
++++ b/node_modules/vue/dist/vue.runtime.common.dev.js
+@@ -2990,12 +2990,12 @@ function FunctionalRenderContext (
+     return this$1.$slots
+   };
+ 
+-  Object.defineProperty(this, 'scopedSlots', ({
++  Object.defineProperty(this, 'scopedSlots', {
+     enumerable: true,
+     get: function get () {
+       return normalizeScopedSlots(data.scopedSlots, this.slots())
+     }
+-  }));
++  });
+ 
+   // support for compiled functional template
+   if (isCompiled) {
+diff --git a/node_modules/vue/dist/vue.runtime.esm.js b/node_modules/vue/dist/vue.runtime.esm.js
+index e475f27..93a4245 100644
+--- a/node_modules/vue/dist/vue.runtime.esm.js
++++ b/node_modules/vue/dist/vue.runtime.esm.js
+@@ -2996,12 +2996,12 @@ function FunctionalRenderContext (
+     return this$1.$slots
+   };
+ 
+-  Object.defineProperty(this, 'scopedSlots', ({
++  Object.defineProperty(this, 'scopedSlots', {
+     enumerable: true,
+     get: function get () {
+       return normalizeScopedSlots(data.scopedSlots, this.slots())
+     }
+-  }));
++  });
+ 
+   // support for compiled functional template
+   if (isCompiled) {
+diff --git a/node_modules/vue/dist/vue.runtime.js b/node_modules/vue/dist/vue.runtime.js
+index 9523219..93468b9 100644
+--- a/node_modules/vue/dist/vue.runtime.js
++++ b/node_modules/vue/dist/vue.runtime.js
+@@ -2994,12 +2994,12 @@
+       return this$1.$slots
+     };
+ 
+-    Object.defineProperty(this, 'scopedSlots', ({
++    Object.defineProperty(this, 'scopedSlots', {
+       enumerable: true,
+       get: function get () {
+         return normalizeScopedSlots(data.scopedSlots, this.slots())
+       }
+-    }));
++    });
+ 
+     // support for compiled functional template
+     if (isCompiled) {
+diff --git a/node_modules/vue/src/core/vdom/create-functional-component.js b/node_modules/vue/src/core/vdom/create-functional-component.js
+index c6edf65..7a28d83 100644
+--- a/node_modules/vue/src/core/vdom/create-functional-component.js
++++ b/node_modules/vue/src/core/vdom/create-functional-component.js
+@@ -59,12 +59,12 @@ export function FunctionalRenderContext (
+     return this.$slots
+   }
+ 
+-  Object.defineProperty(this, 'scopedSlots', ({
++  Object.defineProperty(this, 'scopedSlots', {
+     enumerable: true,
+     get () {
+       return normalizeScopedSlots(data.scopedSlots, this.slots())
+     }
+-  }: any))
++  })
+ 
+   // support for compiled functional template
+   if (isCompiled) {

@@ -1,0 +1,82 @@
+diff --git a/node_modules/mini-css-extract-plugin/dist/index.js b/node_modules/mini-css-extract-plugin/dist/index.js
+index eda4bac..615305a 100644
+--- a/node_modules/mini-css-extract-plugin/dist/index.js
++++ b/node_modules/mini-css-extract-plugin/dist/index.js
+@@ -7,6 +7,8 @@ exports.default = void 0;
+ 
+ var _webpack = _interopRequireDefault(require("webpack"));
+ 
++var _JavascriptModulesPlugin = require("webpack/lib/javascript/JavascriptModulesPlugin");
++
+ var _webpackSources = _interopRequireDefault(require("webpack-sources"));
+ 
+ var _CssDependency = _interopRequireDefault(require("./CssDependency"));
+@@ -134,7 +136,7 @@ class MiniCssExtractPlugin {
+     compiler.hooks.thisCompilation.tap(pluginName, compilation => {
+       compilation.dependencyFactories.set(_CssDependency.default, new CssModuleFactory());
+       compilation.dependencyTemplates.set(_CssDependency.default, new CssDependencyTemplate());
+-      compilation.mainTemplate.hooks.renderManifest.tap(pluginName, (result, {
++      compilation.hooks.renderManifest.tap(pluginName, (result, {
+         chunk
+       }) => {
+         const renderedModules = Array.from(chunk.modulesIterable).filter(module => module.type === MODULE_TYPE);
+@@ -154,7 +156,7 @@ class MiniCssExtractPlugin {
+           });
+         }
+       });
+-      compilation.chunkTemplate.hooks.renderManifest.tap(pluginName, (result, {
++      compilation.hooks.renderManifest.tap(pluginName, (result, {
+         chunk
+       }) => {
+         const renderedModules = Array.from(chunk.modulesIterable).filter(module => module.type === MODULE_TYPE);
+@@ -172,7 +174,9 @@ class MiniCssExtractPlugin {
+           });
+         }
+       });
+-      compilation.mainTemplate.hooks.hashForChunk.tap(pluginName, (hash, chunk) => {
++      _JavascriptModulesPlugin.getCompilationHooks(compilation).chunkHash.tap(pluginName, (chunk, hash) => {
++        if (!chunk.hasRuntime()) return;
++
+         const {
+           chunkFilename
+         } = this.options;
+@@ -298,7 +302,7 @@ class MiniCssExtractPlugin {
+     let usedModules;
+     const [chunkGroup] = chunk.groupsIterable;
+ 
+-    if (typeof chunkGroup.getModuleIndex2 === 'function') {
++    if (typeof chunkGroup.getModulePostOrderIndex === 'function') {
+       // Store dependencies for modules
+       const moduleDependencies = new Map(modules.map(m => [m, new Set()]));
+       const moduleDependenciesReasons = new Map(modules.map(m => [m, new Map()])); // Get ordered list of modules per chunk group
+@@ -309,7 +313,7 @@ class MiniCssExtractPlugin {
+         const sortedModules = modules.map(m => {
+           return {
+             module: m,
+-            index: cg.getModuleIndex2(m)
++            index: cg.getModulePostOrderIndex(m)
+           };
+         }) // eslint-disable-next-line no-undefined
+         .filter(item => item.index !== undefined).sort((a, b) => b.index - a.index).map(item => item.module);
+diff --git a/node_modules/mini-css-extract-plugin/dist/loader.js b/node_modules/mini-css-extract-plugin/dist/loader.js
+index 0c171e7..4b4cde1 100644
+--- a/node_modules/mini-css-extract-plugin/dist/loader.js
++++ b/node_modules/mini-css-extract-plugin/dist/loader.js
+@@ -12,6 +12,8 @@ var _path = _interopRequireDefault(require("path"));
+ 
+ var _loaderUtils = _interopRequireDefault(require("loader-utils"));
+ 
++var _NormalModule = require("webpack/lib/NormalModule");
++
+ var _NodeTemplatePlugin = _interopRequireDefault(require("webpack/lib/node/NodeTemplatePlugin"));
+ 
+ var _NodeTargetPlugin = _interopRequireDefault(require("webpack/lib/node/NodeTargetPlugin"));
+@@ -96,7 +98,7 @@ function pitch(request) {
+     maxChunks: 1
+   }).apply(childCompiler);
+   childCompiler.hooks.thisCompilation.tap(`${pluginName} loader`, compilation => {
+-    compilation.hooks.normalModuleLoader.tap(`${pluginName} loader`, (loaderContext, module) => {
++    _NormalModule.getCompilationHooks(compilation).loader.tap(`${pluginName} loader`, (loaderContext, module) => {
+       // eslint-disable-next-line no-param-reassign
+       loaderContext.emitFile = this.emitFile;
+ 

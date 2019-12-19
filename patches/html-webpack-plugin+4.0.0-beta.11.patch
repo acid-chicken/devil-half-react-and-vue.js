@@ -1,0 +1,56 @@
+diff --git a/node_modules/html-webpack-plugin/index.js b/node_modules/html-webpack-plugin/index.js
+index 2442e37..a648d1b 100644
+--- a/node_modules/html-webpack-plugin/index.js
++++ b/node_modules/html-webpack-plugin/index.js
+@@ -142,7 +142,7 @@ class HtmlWebpackPlugin {
+       compilation.hooks.additionalChunkAssets.tap('HtmlWebpackPlugin', () => {
+         const childCompilerDependencies = childCompiler.getFileDependencies(compiler);
+         childCompilerDependencies.forEach(fileDependency => {
+-          compilation.compilationDependencies.add(fileDependency);
++          compilation.fileDependencies.add(fileDependency);
+         });
+       });
+     });
+@@ -553,7 +553,7 @@ class HtmlWebpackPlugin {
+      * if a path publicPath is set in the current webpack config use it otherwise
+      * fallback to a realtive path
+      */
+-    const webpackPublicPath = compilation.mainTemplate.getPublicPath({ hash: compilationHash });
++    const webpackPublicPath = compilation.getAssetPath(compilation.outputOptions.publicPath, { hash: compilationHash });
+     const isPublicPathDefined = webpackPublicPath.trim() !== '';
+     let publicPath = isPublicPathDefined
+       // If a hard coded public path exists use it
+diff --git a/node_modules/html-webpack-plugin/lib/compiler.js b/node_modules/html-webpack-plugin/lib/compiler.js
+index a13abf3..e196f9c 100644
+--- a/node_modules/html-webpack-plugin/lib/compiler.js
++++ b/node_modules/html-webpack-plugin/lib/compiler.js
+@@ -179,7 +179,7 @@ class HtmlWebpackChildCompiler {
+  */
+ function extractHelperFilesFromCompilation (mainCompilation, childCompilation, filename, childEntryChunks) {
+   const helperAssetNames = childEntryChunks.map((entryChunk, index) => {
+-    return mainCompilation.mainTemplate.getAssetPath(filename, {
++    return mainCompilation.getAssetPath(filename, {
+       hash: childCompilation.hash,
+       chunk: entryChunk,
+       name: `HtmlWebpackPlugin_${index}`
+@@ -261,7 +261,7 @@ function compileTemplate (templatePath, outputFilename, mainCompilation) {
+     if (!compiledTemplates[templatePath]) console.log(Object.keys(compiledTemplates), templatePath);
+     const compiledTemplate = compiledTemplates[templatePath];
+     // Replace [hash] placeholders in filename
+-    const outputName = mainCompilation.mainTemplate.getAssetPath(outputFilename, {
++    const outputName = mainCompilation.getAssetPath(outputFilename, {
+       hash: compiledTemplate.hash,
+       chunk: compiledTemplate.entry
+     });
+@@ -336,9 +336,9 @@ function isChildCompilerCacheOutdated (mainCompilation, childCompiler) {
+     return false;
+   }
+   // Check if any dependent file was changed after the last compilation
+-  const fileTimestamps = mainCompilation.fileTimestamps;
++  const fileSystemInfo = mainCompilation.fileSystemInfo;
+   const isCacheOutOfDate = childCompiler.fileDependencies.some((fileDependency) => {
+-    const timestamp = fileTimestamps.get(fileDependency);
++    const timestamp = fileSystemInfo._fileTimestamps.get(fileDependency);
+     // If the timestamp is not known the file is new
+     // If the timestamp is larger then the file has changed
+     // Otherwise the file is still the same

@@ -1,0 +1,168 @@
+{
+  "name": "half",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "patch-package"
+  },
+  "devDependencies": {
+    "@adobe/react-webcomponent": "^0.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.7",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "@typescript-eslint/eslint-plugin": "^2.12.1-alpha.9",
+    "@typescript-eslint/parser": "^2.12.1-alpha.9",
+    "@vue/web-component-wrapper": "^1.2.0",
+    "autobind-decorator": "^2.4.0",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.0",
+    "cssnano": "^4.1.10",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-react": "^7.8.0-rc.0",
+    "html-webpack-plugin": "^4.0.0-beta.11",
+    "import-sort-style-module": "^6.0.0",
+    "mini-css-extract-plugin": "^0.8.2",
+    "patch-package": "^6.2.0",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-sorting": "^5.0.1",
+    "postinstall-postinstall": "^2.0.0",
+    "react": "^0.0.0-experimental-f42431ab",
+    "react-dom": "^0.0.0-experimental-f42431ab",
+    "reflect-metadata": "^0.1.13",
+    "style-loader": "^1.0.2",
+    "sugarss": "^2.0.0",
+    "terser-webpack-plugin": "^2.3.1",
+    "typescript": "^3.8.0-dev.20191217",
+    "vue": "^2.6.11",
+    "vue-custom-element": "^3.2.12",
+    "vue-loader": "^15.8.3",
+    "vue-property-decorator": "^8.3.0",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^5.0.0-beta.9",
+    "webpack-cli": "^4.0.0-beta.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ],
+      "@babel/preset-typescript",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-optional-chaining"
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:import/errors",
+      "plugin:import/typescript",
+      "plugin:import/warnings",
+      "plugin:react/recommended"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "import"
+    ],
+    "rules": {
+      "@typescript-eslint/explicit-function-return-type": [
+        "off"
+      ],
+      "@typescript-eslint/member-delimiter-style": [
+        "error",
+        {
+          "multiline": {
+            "delimiter": "none"
+          }
+        }
+      ],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "indent": [
+        "error",
+        2
+      ],
+      "quotes": [
+        "error",
+        "single",
+        {
+          "allowTemplateLiterals": true
+        }
+      ],
+      "semi": [
+        "error",
+        "never",
+        {
+          "beforeStatementContinuationChars": "always"
+        }
+      ]
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+      },
+      "ecmaVersion": 2020,
+      "parser": "@typescript-eslint/parser",
+      "sourceType": "module"
+    }
+  },
+  "eslintIgnore": [
+    "dist/**/*.js"
+  ],
+  "importSort": {
+    ".js, .jsx, .es6, .es, .mjs, .ts, .tsx": {
+      "parser": "babylon",
+      "style": "module"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
