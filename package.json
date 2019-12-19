@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "postinstall": "yarn patch-package"
+    "postinstall": "node node_modules/patch-package"
   },
   "devDependencies": {
     "@adobe/react-webcomponent": "^0.1.2",
